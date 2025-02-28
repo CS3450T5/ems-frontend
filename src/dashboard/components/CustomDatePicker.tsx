@@ -68,9 +68,10 @@ export default function CustomDatePicker() {
           previousIconButton: { size: 'small' },
         }}
         open={open}
+	openTo='year'
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
-        views={['day', 'month', 'year']}
+        views={['year', 'month', 'day']}
       />
     </LocalizationProvider>
   );
