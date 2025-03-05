@@ -8,8 +8,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
-import CardAlert from './CardAlert';
 import OptionsMenu from './OptionsMenu';
+import logo from '../../assets/logo.png';
+
 
 const drawerWidth = 240;
 
@@ -40,9 +41,11 @@ export default function SideMenu() {
           display: 'flex',
           mt: 'calc(var(--template-frame-height, 0px) + 4px)',
           p: 1.5,
+          justifyContent: 'center',
         }}
       >
-        <SelectContent />
+        <img src={logo} alt="EMS logo" style={{ maxWidth: '65%', height: 'auto' }} />
+        
       </Box>
       <Divider />
       <Box
@@ -53,8 +56,7 @@ export default function SideMenu() {
           flexDirection: 'column',
         }}
       >
-        <MenuContent />
-        <CardAlert />
+        <MenuContent /> 
       </Box>
       <Stack
         direction="row"
@@ -68,16 +70,16 @@ export default function SideMenu() {
       >
         <Avatar
           sizes="small"
-          alt="Riley Carter"
+          alt="EMS Admin"
           src="/static/images/avatar/7.jpg"
           sx={{ width: 36, height: 36 }}
         />
         <Box sx={{ mr: 'auto' }}>
           <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: '16px' }}>
-            Riley Carter
+            EMS Admin
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            riley@email.com
+            admin@ems.com
           </Typography>
         </Box>
         <OptionsMenu />
