@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
@@ -6,13 +5,11 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
 import OptionsMenu from './OptionsMenu';
 import logo from '../../assets/logo.png';
 
-
-const drawerWidth = 240;
+const drawerWidth = 210; // Adjust the width of the side menu
 
 const Drawer = styled(MuiDrawer)({
   width: drawerWidth,
@@ -39,13 +36,14 @@ export default function SideMenu() {
       <Box
         sx={{
           display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center', // Center items horizontally
           mt: 'calc(var(--template-frame-height, 0px) + 4px)',
           p: 1.5,
-          justifyContent: 'center',
         }}
       >
-        <img src={logo} alt="EMS logo" style={{ maxWidth: '65%', height: 'auto' }} />
-        
+        <img src={logo} alt="EMS logo" style={{ maxWidth: '70%', height: 'auto' }} />
+        <h1 style={{ marginTop: '8px', marginBottom: 0, fontFamily: 'BrandFont' }}>EMS</h1>
       </Box>
       <Divider />
       <Box
@@ -56,7 +54,7 @@ export default function SideMenu() {
           flexDirection: 'column',
         }}
       >
-        <MenuContent /> 
+        <MenuContent />
       </Box>
       <Stack
         direction="row"

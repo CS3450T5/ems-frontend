@@ -8,44 +8,39 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import BoltIcon from '@mui/icons-material/Bolt';
 
-import {
-  IndiaFlag,
-  UsaFlag,
-  BrazilFlag,
-  GlobeFlag,
-} from '../internals/components/CustomIcons';
 
 const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
+  { label: 'Device 1', value: 50000 },
+  { label: 'Device 2', value: 35000 },
+  { label: 'Device 3', value: 10000 },
+  { label: 'Device 4', value: 5000 },
 ];
 
 const countries = [
   {
-    name: 'India',
+    name: 'Device 1',
     value: 50,
-    flag: <IndiaFlag />,
+    flag: <BoltIcon />,
     color: 'hsl(220, 25%, 65%)',
   },
   {
-    name: 'USA',
+    name: 'Device 2',
     value: 35,
-    flag: <UsaFlag />,
+    flag: <BoltIcon />,
     color: 'hsl(220, 25%, 45%)',
   },
   {
-    name: 'Brazil',
+    name: 'Device 3',
     value: 10,
-    flag: <BrazilFlag />,
+    flag: <BoltIcon />,
     color: 'hsl(220, 25%, 30%)',
   },
   {
-    name: 'Other',
+    name: 'Device 4',
     value: 5,
-    flag: <GlobeFlag />,
+    flag: <BoltIcon />,
     color: 'hsl(220, 25%, 20%)',
   },
 ];
@@ -129,7 +124,7 @@ export default function ChartUserByCountry() {
     >
       <CardContent>
         <Typography component="h2" variant="subtitle2">
-          Users by country
+          Usage by device
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PieChart

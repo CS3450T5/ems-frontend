@@ -1,5 +1,3 @@
-// filepath: /home/peter_s/CS3450Project/ems-frontend/ems-frontend/src/dashboard/components/MenuContent.tsx
-import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,17 +5,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
+import BoltIcon from '@mui/icons-material/Bolt';
 import { Link } from 'react-router-dom';
 
 const mainListItems = [
   { text: 'Home', icon: <HomeRoundedIcon />, link: '/' },
-  { text: 'Devices', icon: <AnalyticsRoundedIcon />, link: '/devices' },
+  { text: 'Devices', icon: <BoltIcon />, link: '/devices' },
   { text: 'Settings', icon: <SettingsRoundedIcon />, link: '/settings' },
 ];
 
