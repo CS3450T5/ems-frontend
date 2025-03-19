@@ -35,7 +35,7 @@ function getDaysInMonth(month: number, year: number) {
 
 export default function SessionsChart() {
   const theme = useTheme();
-  const data = getDaysInMonth(4, 2024);
+  const data = getDaysInMonth(5, 2025);
 
   const colorPalette = [
     theme.palette.primary.light,
@@ -47,7 +47,7 @@ export default function SessionsChart() {
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          Sessions
+          Energy Usage
         </Typography>
         <Stack sx={{ justifyContent: 'space-between' }}>
           <Stack
