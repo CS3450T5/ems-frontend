@@ -52,12 +52,22 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
             <Header />
             <h2>Devices</h2>
             <Grid container spacing={2} sx={{ width: '100%', margin: 0 }}>
-              <Grid item xs={12} lg={8}>
+              <Grid
+                sx={{
+                  width: '100%',
+                  gridColumn: { xs: 'span 12', lg: 'span 8' },
+                }}
+              >
                 <Box sx={{ width: '100%' }}>
                   <CustomizedDataGrid />
                 </Box>
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid
+                sx={{
+                  width: '100%',
+                  gridColumn: { xs: 'span 12', lg: 'span 4' },
+                }}
+              >
                 <Box sx={{ width: '100%' }}>
                   <ChartUserByCountry />
                 </Box>
