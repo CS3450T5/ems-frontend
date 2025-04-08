@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Box, Stack } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,7 +5,6 @@ import AppNavbar from './AppNavbar';
 import Header from './Header';
 import SideMenu from './SideMenu';
 import AppTheme from '../../shared-theme/AppTheme';
-import CustomizedDataGrid from './CustomizedDataGrid';
 import {
   chartsCustomizations,
   dataGridCustomizations,
