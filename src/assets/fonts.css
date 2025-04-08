@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "BrandFont";
+    src: url('./fonts/ElectroShackle-Yrvy.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "BrandFont2";
+    src: url('./fonts/VoltsromRegular-R9JZ6.otf') format('truetype');
+}
