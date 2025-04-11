@@ -23,6 +23,9 @@ const xThemeComponents = {
 };
 
 export default function Devices(props: { disableCustomTheme?: boolean }) {
+  
+  
+  
   return (
     <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
@@ -42,8 +45,8 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
           <Stack
             spacing={2}
             sx={{
-              alignItems: 'start',
-              px: 3,
+              alignItems: 'stretch', // Changed from 'start' to stretch full width
+              px: { xs: 1, md: 2 }, // Reduced padding on x-axis
               pb: 5,
               mt: { xs: 8, md: 0 },
               width: '100%',
@@ -51,14 +54,28 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
           >
             <Header />
             <h2>Devices</h2>
-            <Grid container spacing={2} sx={{ width: '100%', margin: 0 }}>
-              <Grid item xs={12} lg={8}>
-                <Box sx={{ width: '100%' }}>
+            <Grid 
+              container 
+              spacing={2} 
+              sx={{ 
+                width: '100%', 
+                margin: 0,
+                maxWidth: 'none', // Ensure no max width constraints
+              }}
+            >
+              <Grid item xs={12} lg={8} sx={{ width: '100%' }}>
+                <Box sx={{ 
+                  width: '100%', 
+                  height: '100%',
+                }}>
                   <CustomizedDataGrid />
                 </Box>
               </Grid>
-              <Grid item xs={12} lg={4}>
-                <Box sx={{ width: '100%' }}>
+              <Grid item xs={12} lg={4} sx={{ width: '100%' }}>
+                <Box sx={{ 
+                  width: '100%',
+                  height: '100%', 
+                }}>
                   <ChartUserByCountry />
                 </Box>
               </Grid>

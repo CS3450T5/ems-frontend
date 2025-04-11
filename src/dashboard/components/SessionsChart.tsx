@@ -35,7 +35,7 @@ function getDaysInMonth(month: number, year: number) {
 
 export default function SessionsChart() {
   const theme = useTheme();
-  const data = getDaysInMonth(5, 2025);
+  const data = getDaysInMonth(1, 2025);
 
   const colorPalette = [
     theme.palette.primary.light,
@@ -47,7 +47,7 @@ export default function SessionsChart() {
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          Energy Usage
+          Total Energy Usage
         </Typography>
         <Stack sx={{ justifyContent: 'space-between' }}>
           <Stack
@@ -61,10 +61,10 @@ export default function SessionsChart() {
             <Typography variant="h4" component="p">
               13,277
             </Typography>
-            <Chip size="small" color="success" label="+35%" />
+            
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Sessions per day for the last 30 days
+            Total voltage use per day
           </Typography>
         </Stack>
         <LineChart
@@ -78,12 +78,12 @@ export default function SessionsChart() {
           ]}
           series={[
             {
-              id: 'direct',
-              label: 'Direct',
+              id: 'voltage',
+              label: 'Voltage',
               showMark: false,
               curve: 'linear',
               stack: 'total',
-              area: true,
+              area: false,
               stackOrder: 'ascending',
               data: [
                 300, 900, 600, 1200, 1500, 1800, 2400, 2100, 2700, 3000, 1800, 3300,
@@ -91,34 +91,7 @@ export default function SessionsChart() {
                 6300, 6600, 6900, 7200, 7500, 7800, 8100,
               ],
             },
-            {
-              id: 'referral',
-              label: 'Referral',
-              showMark: false,
-              curve: 'linear',
-              stack: 'total',
-              area: true,
-              stackOrder: 'ascending',
-              data: [
-                500, 900, 700, 1400, 1100, 1700, 2300, 2000, 2600, 2900, 2300, 3200,
-                3500, 3800, 4100, 4400, 2900, 4700, 5000, 5300, 5600, 5900, 6200,
-                6500, 5600, 6800, 7100, 7400, 7700, 8000,
-              ],
-            },
-            {
-              id: 'organic',
-              label: 'Organic',
-              showMark: false,
-              curve: 'linear',
-              stack: 'total',
-              stackOrder: 'ascending',
-              data: [
-                1000, 1500, 1200, 1700, 1300, 2000, 2400, 2200, 2600, 2800, 2500,
-                3000, 3400, 3700, 3200, 3900, 4100, 3500, 4300, 4500, 4000, 4700,
-                5000, 5200, 4800, 5400, 5600, 5900, 6100, 6300,
-              ],
-              area: true,
-            },
+           
           ]}
           height={250}
           margin={{ left: 50, right: 20, top: 20, bottom: 20 }}
@@ -140,9 +113,7 @@ export default function SessionsChart() {
             },
           }}
         >
-          <AreaGradient color={theme.palette.primary.dark} id="organic" />
-          <AreaGradient color={theme.palette.primary.main} id="referral" />
-          <AreaGradient color={theme.palette.primary.light} id="direct" />
+          <AreaGradient color={theme.palette.primary.light} id="voltage" />
         </LineChart>
       </CardContent>
     </Card>

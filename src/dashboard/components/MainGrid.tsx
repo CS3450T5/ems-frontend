@@ -1,9 +1,11 @@
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
+import { fetchData } from '../../api.ts';
 import Typography from '@mui/material/Typography';
 import Copyright from '../internals/components/Copyright';
-import HighlightedCard from './HighlightedCard';
 import PageViewsBarChart from './PageViewsBarChart';
+import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import SessionsChart from './SessionsChart';
 import StatCard, { StatCardProps } from './StatCard';
 
@@ -41,6 +43,26 @@ const data: StatCardProps[] = [
 ];
 
 export default function MainGrid() {
+  
+  const [maxEnergy, setMaxEnergy] = useState<{ MaxEnergy?: number }>({});
+
+  // Fetch data from the API
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+      try {
+        const maxEnergy = await fetchData('/max-energy');
+        console.log('Fetched data:', maxEnergy); 
+        setMaxEnergy(maxEnergy);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchDataFromAPI();
+  }, []);
+  
+  
+  
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
@@ -59,7 +81,18 @@ export default function MainGrid() {
           </Grid>
         ))}
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <HighlightedCard />
+          <Gauge
+            value={Math.round((maxEnergy.MaxEnergy ?? 0) * 100)}
+            startAngle={-110}
+            endAngle={110}
+            sx={{
+              [`& .${gaugeClasses.valueText}`]: {
+          fontSize: 40,
+          transform: 'translate(0px, 0px)',
+              },
+            }}
+            text={({ value }) => `${value}%`}
+          />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <SessionsChart />
@@ -67,14 +100,9 @@ export default function MainGrid() {
         <Grid size={{ xs: 12, md: 6 }}>
           <PageViewsBarChart />
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <SessionsChart />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <SessionsChart />
-        </Grid>
       </Grid>
       <Copyright sx={{ my: 4 }} />
+      {/* <p>{maxEnergy.MaxEnergy ?? 'Loading...'}</p> */}
     </Box>
   );
 }
