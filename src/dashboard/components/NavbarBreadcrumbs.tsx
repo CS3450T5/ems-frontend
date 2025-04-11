@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   margin: theme.spacing(1, 0),
   [`& .${breadcrumbsClasses.separator}`]: {
-    color: (theme.vars || theme).palette.action.disabled,
+    color: theme.palette.action.disabled,
     margin: 1,
   },
   [`& .${breadcrumbsClasses.ol}`]: {
@@ -34,7 +34,7 @@ export default function NavbarBreadcrumbs() {
       <Link component={RouterLink} to="/">
         Dashboard
       </Link>
-      {pathnames.map((value, index) => {
+      {pathnames.map((_, index) => {
         const last = index === pathnames.length - 1;
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
