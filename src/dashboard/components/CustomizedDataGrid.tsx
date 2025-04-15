@@ -42,7 +42,7 @@ const columns: GridColDef[] = [
 //const rows: GridRowsProp = [
   //{
     //id: 1,
-    //device: 'bruh',
+    //device: {deviceTotal},
     //voltage: 1,
     //current: 12,
     //power: 7,
@@ -57,9 +57,16 @@ export default function CustomizedDataGrid() {
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
-        const maxEnergy = await fetchData('/max-energy');
-        console.log('Fetched data:', maxEnergy); 
-        setRows(maxEnergy);
+        const deviceTotal = await fetchData('/device-total/EVR');
+        console.log('Fetched data:', deviceTotal); 
+        setRows({
+	  id: 1,
+	  device: deviceTotal.device_id,
+	  voltage: 0,
+	  current: 1,
+	  power: 8,
+	  state: 'Disconnected'
+	});
       } catch (error) {
         console.error('Error fetching data:', error);
       }
