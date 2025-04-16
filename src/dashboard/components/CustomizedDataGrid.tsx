@@ -52,7 +52,7 @@ const columns: GridColDef[] = [
 
 export default function CustomizedDataGrid() {
 
-  const usableDevices = ['Fronius_SEVEN_SIX', 'Logix_Blue', 'SMA_FIFTY', 'SMA_SEVEN', 'W1-1113-TA12-6-2343-00013', 'Yaskawa']
+  const usableDevices = ['Fronius_SEVEN_SIX', 'Logix_Blue', 'SMA_FIFTY', 'SMA_SEVEN', 'W1-1113-TA12-6-2343-00013', 'Yaskawa'];
 
   const [rows, setRows] = useState([{
     id: 0,
@@ -65,19 +65,22 @@ export default function CustomizedDataGrid() {
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
+    let newRows = [];
       try {
-	usableDevices.forEach(async (device, i) => {
+	for (let i=0; i < usableDevices.length; i++) {
+	  let device = usableDevices[i];
 	  const deviceTotal = await fetchData(`/device-total/${device}`)
           console.log('Fetched data:', deviceTotal); 
-          setRows([{
+          newRows.push({
 	    id: i,
 	    device: deviceTotal.device_id,
 	    voltage: deviceTotal.device_voltage_total/deviceTotal.device_entries + ' V',
 	    current: deviceTotal.device_current_total/deviceTotal.device_entries + ' A',
 	    power: deviceTotal.device_power_total/deviceTotal.device_entries + ' W',
 	    state: deviceTotal.device_state
-	  }]);
-	})
+	  });
+	}
+	setRows(newRows);
         //const deviceTotal = await fetchData('/device-total/Logix_Blue');
         //console.log('Fetched data:', deviceTotal); 
         //setRows([{
