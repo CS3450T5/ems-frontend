@@ -7,7 +7,7 @@ const columns: GridColDef[] = [
   { field: 'device', headerName: 'Device Name', flex: 1.5, minWidth: 200 },
   {
     field: 'voltage',
-    headerName: 'Voltage',
+    headerName: 'Avg. Voltage',
     headerAlign: 'right',
     align: 'right',
     flex: 1,
@@ -15,7 +15,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'current',
-    headerName: 'Current',
+    headerName: 'Avg. Current',
     headerAlign: 'right',
     align: 'right',
     flex: 1,
@@ -23,7 +23,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'power',
-    headerName: 'Power',
+    headerName: 'Avg. Power',
     headerAlign: 'right',
     align: 'right',
     flex: 1,
@@ -52,8 +52,10 @@ const columns: GridColDef[] = [
 
 export default function CustomizedDataGrid() {
 
+  const usableDevices = ['Fronius_SEVEN_SIX', 'Logix_Blue', 'SMA_FIFTY', 'SMA_SEVEN', 'W1-1113-TA12-6-2343-00013', 'Yaskawa']
+
   const [rows, setRows] = useState([{
-    id: 1,
+    id: 0,
     device: 'Device',
     voltage: 0,
     current: 1,
@@ -64,16 +66,28 @@ export default function CustomizedDataGrid() {
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
-        const deviceTotal = await fetchData('/device-total/EVR');
-        console.log('Fetched data:', deviceTotal); 
-        setRows([{
-	  id: 2,
-	  device: deviceTotal.device_id,
-	  voltage: 0,
-	  current: 1,
-	  power: 8,
-	  state: 'Disconnected'
-	}]);
+	usableDevices.forEach(async (device, i) => {
+	  const deviceTotal = await fetchData(`/device-total/${device}`)
+          console.log('Fetched data:', deviceTotal); 
+          setRows([{
+	    id: i,
+	    device: deviceTotal.device_id,
+	    voltage: deviceTotal.device_voltage_total/deviceTotal.device_entries + ' V',
+	    current: deviceTotal.device_current_total/deviceTotal.device_entries + ' A',
+	    power: deviceTotal.device_power_total/deviceTotal.device_entries + ' W',
+	    state: deviceTotal.device_state
+	  }]);
+	})
+        //const deviceTotal = await fetchData('/device-total/Logix_Blue');
+        //console.log('Fetched data:', deviceTotal); 
+        //setRows([{
+	  //id: 2,
+	  //device: deviceTotal.device_id,
+	  //voltage: deviceTotal.device_voltage_total/deviceTotal.device_entries + ' V',
+	  //current: deviceTotal.device_current_total/deviceTotal.device_entries + ' A',
+	  //power: deviceTotal.device_power_total/deviceTotal.device_entries + ' W',
+	  //state: deviceTotal.device_state
+	//}]);
 	console.log(rows);
       } catch (error) {
         console.error('Error fetching data:', error);
