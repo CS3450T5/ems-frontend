@@ -8,6 +8,7 @@ import PageViewsBarChart from './PageViewsBarChart';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import SessionsChart from './SessionsChart';
 import StatCard, { StatCardProps } from './StatCard';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 const data: StatCardProps[] = [
   {
@@ -45,6 +46,9 @@ const data: StatCardProps[] = [
 export default function MainGrid() {
   
   const [maxEnergy, setMaxEnergy] = useState<{ MaxEnergy?: number }>({});
+  const [sources, setSources] = useState<{ Sources?: string }>({ });
+  const [sourceVals, setSourceVals] = useState<{ SourceVals?: number }>({ });
+  
 
   // Fetch data from the API
   useEffect(() => {
@@ -53,6 +57,12 @@ export default function MainGrid() {
         const maxEnergy = await fetchData('/max-energy');
         console.log('Fetched data:', maxEnergy); 
         setMaxEnergy(maxEnergy);
+
+        const sources = await fetchData('/energy-sources-general');
+        console.log('fetched data:', sources);
+        setSources({Sources: sources[0][0]});
+        setSourceVals({SourceVals: sources[0][1]});
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -92,6 +102,20 @@ export default function MainGrid() {
               },
             }}
             text={({ value }) => `${value}%`}
+          />
+        </Grid>
+        <Grid size={{ xs: 10, sm: 8, lg: 4 }}>
+          {/* this is the energy sources pie chart */}
+          <PieChart
+            series={[
+              {
+                data: [
+                  { id: 0, value: (sourceVals.SourceVals ?? 1), label: (sources.Sources ?? "") },
+                ],
+              },
+            ]}
+            width={400}
+            height={200}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
