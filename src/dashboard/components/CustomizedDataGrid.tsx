@@ -39,17 +39,6 @@ const columns: GridColDef[] = [
   }
 ];
 
-//const rows: GridRowsProp = [
-  //{
-    //id: 1,
-    //device: {deviceTotal},
-    //voltage: 1,
-    //current: 12,
-    //power: 7,
-    //state: 'Disconnected'
-  //}
-//];
-
 export default function CustomizedDataGrid() {
 
   const usableDevices = ['Fronius_SEVEN_SIX', 'Logix_Blue', 'SMA_FIFTY', 'SMA_SEVEN', 'W1-1113-TA12-6-2343-00013', 'Yaskawa'];
@@ -74,23 +63,13 @@ export default function CustomizedDataGrid() {
           newRows.push({
 	    id: i,
 	    device: deviceTotal.device_id,
-	    voltage: deviceTotal.device_voltage_total/deviceTotal.device_entries + ' V',
-	    current: deviceTotal.device_current_total/deviceTotal.device_entries + ' A',
-	    power: deviceTotal.device_power_total/deviceTotal.device_entries + ' W',
+	    voltage: (deviceTotal.device_voltage_total/deviceTotal.device_entries).toFixed(3) + ' V',
+	    current: (deviceTotal.device_current_total/deviceTotal.device_entries).toFixed(3) + ' A',
+	    power: (deviceTotal.device_power_total/deviceTotal.device_entries).toFixed(3) + ' W',
 	    state: deviceTotal.device_state
 	  });
 	}
 	setRows(newRows);
-        //const deviceTotal = await fetchData('/device-total/Logix_Blue');
-        //console.log('Fetched data:', deviceTotal); 
-        //setRows([{
-	  //id: 2,
-	  //device: deviceTotal.device_id,
-	  //voltage: deviceTotal.device_voltage_total/deviceTotal.device_entries + ' V',
-	  //current: deviceTotal.device_current_total/deviceTotal.device_entries + ' A',
-	  //power: deviceTotal.device_power_total/deviceTotal.device_entries + ' W',
-	  //state: deviceTotal.device_state
-	//}]);
 	console.log(rows);
       } catch (error) {
         console.error('Error fetching data:', error);
