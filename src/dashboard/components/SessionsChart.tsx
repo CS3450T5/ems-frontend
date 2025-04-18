@@ -1,10 +1,11 @@
 import { useTheme } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { fetchData } from '../../api';
 
 function AreaGradient({ color, id }: { color: string; id: string }) {
   return (
@@ -17,30 +18,43 @@ function AreaGradient({ color, id }: { color: string; id: string }) {
   );
 }
 
-function getDaysInMonth(month: number, year: number) {
-  const date = new Date(year, month, 0);
-  const monthName = date.toLocaleDateString('en-US', {
-    month: 'short',
-  });
-  const daysInMonth = date.getDate();
-  const days = [];
-  let i = 1;
-  while (days.length < daysInMonth) {
-    days.push(`${monthName} ${i}`);
-    i += 1;
-  }
-  return days;
-}
 
 export default function SessionsChart() {
   const theme = useTheme();
-  const data = getDaysInMonth(1, 2025);
 
   const colorPalette = [
     theme.palette.primary.light,
     theme.palette.primary.main,
     theme.palette.primary.dark,
   ];
+
+  const [totalUsage, setTotalUsage] = useState<string>('');
+  const [energyPerDay, setEnergyPerDay] = useState<(number | null)[]>([0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+      try {
+        const firstDay = await fetchData('/total-usage/1743832800/1743919199');
+        const secondDay = await fetchData('/total-usage/1743919200/1744005599');
+        const thirdDay = await fetchData('/total-usage/1744005600/1744091999');
+        const fourthDay = await fetchData('/total-usage/1744092000/1744178399');
+        const fifthDay = await fetchData('/total-usage/1744178400/1744264799');
+        setTotalUsage(firstDay.voltage_total+secondDay.voltage_total+thirdDay.voltage_total+fourthDay.voltage_total+fifthDay.voltage_total);
+        setEnergyPerDay([
+          firstDay.voltage_total || null,
+          secondDay.voltage_total || null,
+          thirdDay.voltage_total || null,
+          fourthDay.voltage_total || null,
+          fifthDay.voltage_total || null,
+        ]);
+      } catch (error) {
+      }
+    };
+    fetchDataFromAPI();
+  }, []);
+
+
+  
 
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
@@ -58,7 +72,7 @@ export default function SessionsChart() {
             }}
           >
             <Typography variant="h4" component="p">
-              13,277
+                {totalUsage ? `${totalUsage}V` : 'Loading...'}
             </Typography>
             
           </Stack>
@@ -71,7 +85,7 @@ export default function SessionsChart() {
           xAxis={[
             {
               scaleType: 'point',
-              data,
+              data: ['Apr 5', 'Apr 6', 'Apr 7', 'Apr 8', 'Apr 9'],
               tickInterval: (i) => (i + 1) % 5 === 0,
             },
           ]}
@@ -84,11 +98,7 @@ export default function SessionsChart() {
               stack: 'total',
               area: false,
               stackOrder: 'ascending',
-              data: [
-                300, 900, 600, 1200, 1500, 1800, 2400, 2100, 2700, 3000, 1800, 3300,
-                3600, 3900, 4200, 4500, 3900, 4800, 5100, 5400, 4800, 5700, 6000,
-                6300, 6600, 6900, 7200, 7500, 7800, 8100,
-              ],
+              data: energyPerDay,
             },
            
           ]}

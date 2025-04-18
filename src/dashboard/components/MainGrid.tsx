@@ -9,11 +9,12 @@ import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import SessionsChart from './SessionsChart';
 import StatCard, { StatCardProps } from './StatCard';
 import { PieChart } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts';
 
 const data: StatCardProps[] = [
   {
     title: 'Production per hour',
-    value: '14k',
+    value: '14V',
     interval: 'Last 30 days',
     trend: 'up',
     data: [
@@ -22,7 +23,7 @@ const data: StatCardProps[] = [
     ],
   },
   {
-    title: '% of max production',
+    title: '% Down time',
     value: '325',
     interval: 'Last 30 days',
     trend: 'down',
@@ -50,7 +51,6 @@ export default function MainGrid() {
   const [sourceVals, setSourceVals] = useState<{ SourceVals?: number }>({ });
   
 
-  // Fetch data from the API
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
@@ -75,7 +75,6 @@ export default function MainGrid() {
   
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
-      {/* cards */}
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Overview
       </Typography>
@@ -105,28 +104,30 @@ export default function MainGrid() {
           />
         </Grid>
         <Grid size={{ xs: 10, sm: 8, lg: 4 }}>
-          {/* this is the energy sources pie chart */}
-          <PieChart
-            series={[
+            <Box sx={{ p: 7, textAlign: 'center', border: '1px solid', borderColor: 'grey.700', borderRadius: 2 }}>
+              <PieChart
+              series={[
               {
-                data: [
-                  { id: 0, value: (sourceVals.SourceVals ?? 1), label: (sources.Sources ?? "") },
-                ],
+              data: [
+              { id: 0, value: (sourceVals.SourceVals ?? 1), label: (sources.Sources ?? "") },
+              ],
               },
-            ]}
-            width={400}
-            height={200}
-          />
+              ]}
+              width={400}
+              height={200}
+              />
+              <Typography variant="subtitle1" sx={{ mt: 2 }}>
+              Energy Sources
+              </Typography>
+            </Box>
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <SessionsChart />
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <PageViewsBarChart />
         </Grid>
       </Grid>
-      <Copyright sx={{ my: 4 }} />
-      {/* <p>{maxEnergy.MaxEnergy ?? 'Loading...'}</p> */}
     </Box>
   );
 }
