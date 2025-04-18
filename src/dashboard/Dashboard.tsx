@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import { fetchData } from '../api.ts';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -31,7 +29,6 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
         <AppNavbar />
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
           <SideMenu />
-          {/* Main content */}
           <Box
             component="main"
             sx={(theme) => ({
@@ -54,7 +51,6 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
             >
               <Header />
               <MainGrid />
-              
             </Stack>
           </Box>
         </Box>

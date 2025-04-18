@@ -3,13 +3,11 @@ import Box from '@mui/material/Box';
 import { useState, useEffect } from 'react';
 import { fetchData } from '../../api.ts';
 import Typography from '@mui/material/Typography';
-import Copyright from '../internals/components/Copyright';
 import PageViewsBarChart from './PageViewsBarChart';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import SessionsChart from './SessionsChart';
 import StatCard, { StatCardProps } from './StatCard';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { BarChart } from '@mui/x-charts';
 
 const data: StatCardProps[] = [
   {

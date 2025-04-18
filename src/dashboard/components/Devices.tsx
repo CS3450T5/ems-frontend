@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppNavbar from './AppNavbar';
@@ -32,7 +32,6 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
       <Box sx={{ display: 'flex', width: '100%' }}>
         <SideMenu />
         <AppNavbar />
-        {/* Main content */}
         <Box
           component="main"
           sx={(theme) => ({
@@ -45,8 +44,8 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
           <Stack
             spacing={2}
             sx={{
-              alignItems: 'stretch', // Changed from 'start' to stretch full width
-              px: { xs: 1, md: 2 }, // Reduced padding on x-axis
+              alignItems: 'stretch', 
+              px: { xs: 1, md: 2 }, 
               pb: 5,
               mt: { xs: 8, md: 0 },
               width: '100%',
@@ -60,10 +59,10 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
               sx={{ 
                 width: '100%', 
                 margin: 0,
-                maxWidth: 'none', // Ensure no max width constraints
+                maxWidth: 'none',
               }}
             >
-              <Grid item xs={12} lg={8} sx={{ width: '100%' }}>
+              <Grid item xs={12} lg={11} sx={{ width: '100%' }}>
                 <Box sx={{ 
                   width: '100%', 
                   height: '100%',
@@ -71,7 +70,7 @@ export default function Devices(props: { disableCustomTheme?: boolean }) {
                   <CustomizedDataGrid />
                 </Box>
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ width: '100%' }}>
+              <Grid item xs={12} lg={11} sx={{ width: '100%' }}>
                 <Box sx={{ 
                   width: '100%',
                   height: '100%', 

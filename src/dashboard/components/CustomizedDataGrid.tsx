@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { fetchData } from '../../api.ts';
-import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
   { field: 'device', headerName: 'Device Name', flex: 1.5, minWidth: 200 },
@@ -63,9 +63,9 @@ export default function CustomizedDataGrid() {
           newRows.push({
 	    id: i,
 	    device: deviceTotal.device_id,
-	    voltage: (deviceTotal.device_voltage_total/deviceTotal.device_entries).toFixed(3) + ' V',
-	    current: (deviceTotal.device_current_total/deviceTotal.device_entries).toFixed(3) + ' A',
-	    power: (deviceTotal.device_power_total/deviceTotal.device_entries).toFixed(3) + ' W',
+      voltage: parseFloat((deviceTotal.device_voltage_total / deviceTotal.device_entries).toFixed(3)),
+      current: parseFloat((deviceTotal.device_current_total / deviceTotal.device_entries).toFixed(3)),
+      power: parseFloat((deviceTotal.device_power_total / deviceTotal.device_entries).toFixed(3)),
 	    state: deviceTotal.device_state
 	  });
 	}
