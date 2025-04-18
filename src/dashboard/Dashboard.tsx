@@ -37,21 +37,19 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
             sx={(theme) => ({
               flexGrow: 1,
               backgroundColor: alpha(theme.palette.background.default, 1),
-              overflow: 'hidden', // Prevent horizontal overflow
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%', // Ensure the Box takes full width
+              overflow: 'visible',
+              width: '100%',
             })}
           >
             <Stack
               spacing={2}
               sx={{
                 alignItems: 'center',
-                px: 3, // Change mx to px to avoid horizontal overflow
+                px: 3,
                 pb: 5,
                 mt: 0,
                 flexGrow: 1,
-                width: '100%', // Ensure the Stack takes full width
+                width: '100%'
               }}
             >
               <Header />
