@@ -1,7 +1,84 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { columns, rows } from '../internals/data/gridData';
+import { useState, useEffect } from 'react';
+import { fetchData } from '../../api.ts';
+import { GridColDef } from '@mui/x-data-grid';
+
+const columns: GridColDef[] = [
+  { field: 'device', headerName: 'Device Name', flex: 1.5, minWidth: 200 },
+  {
+    field: 'voltage',
+    headerName: 'Avg. Voltage',
+    headerAlign: 'right',
+    align: 'right',
+    flex: 1,
+    minWidth: 80,
+  },
+  {
+    field: 'current',
+    headerName: 'Avg. Current',
+    headerAlign: 'right',
+    align: 'right',
+    flex: 1,
+    minWidth: 100,
+  },
+  {
+    field: 'power',
+    headerName: 'Avg. Power',
+    headerAlign: 'right',
+    align: 'right',
+    flex: 1,
+    minWidth: 120,
+  },
+  {
+    field: 'state',
+    headerName: 'State',
+    headerAlign: 'right',
+    align: 'right',
+    flex: 1,
+    minWidth: 100,
+  }
+];
 
 export default function CustomizedDataGrid() {
+
+  const usableDevices = ['Fronius_SEVEN_SIX', 'Logix_Blue', 'SMA_FIFTY', 'SMA_SEVEN', 'W1-1113-TA12-6-2343-00013', 'Yaskawa'];
+
+  const [rows, setRows] = useState([{
+    id: 0,
+    device: 'Device',
+    voltage: 0,
+    current: 1,
+    power: 8,
+    state: 'Disconnected'
+  }]);
+
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+    let newRows = [];
+      try {
+	for (let i=0; i < usableDevices.length; i++) {
+	  let device = usableDevices[i];
+	  const deviceTotal = await fetchData(`/device-total/${device}`)
+          console.log('Fetched data:', deviceTotal); 
+          newRows.push({
+	    id: i,
+	    device: deviceTotal.device_id,
+      voltage: parseFloat((deviceTotal.device_voltage_total / deviceTotal.device_entries).toFixed(3)),
+      current: parseFloat((deviceTotal.device_current_total / deviceTotal.device_entries).toFixed(3)),
+      power: parseFloat((deviceTotal.device_power_total / deviceTotal.device_entries).toFixed(3)),
+	    state: deviceTotal.device_state
+	  });
+	}
+	setRows(newRows);
+	console.log(rows);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchDataFromAPI();
+  }, []);
+
   return (
     <DataGrid
       checkboxSelection

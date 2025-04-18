@@ -150,7 +150,7 @@ export default function ChartUserByCountry() {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel primaryText="98.5V" secondaryText="Total" />
           </PieChart>
         </Box>
         {countries.map((country, index) => (
@@ -178,7 +178,7 @@ export default function ChartUserByCountry() {
               </Stack>
               <LinearProgress
                 variant="determinate"
-                aria-label="Number of users by country"
+                aria-label="Number of volts by device"
                 value={country.value}
                 sx={{
                   [`& .${linearProgressClasses.bar}`]: {
